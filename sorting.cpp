@@ -32,6 +32,7 @@ void bubble_sort(vector<int> &v ,int n)
         if(v[j]>v[j+1])
         {
             swap(v[j],v[j+1]);
+            did_swap=1;
         }
         if(did_swap==0)
         {
@@ -87,7 +88,8 @@ void merge(vector<int> &v, int low, int mid, int high)
         temp.push_back(v[right]);
         right++;        
     }
- 
+    
+    
     //putting back the temp vector to original one 
     for(int i=low;i<=high;i++)
     {
@@ -100,7 +102,7 @@ void merge_sort(vector<int> &v ,int low ,int high)
     if(low == high) return;
     int mid = (low + high)/2;
 
-    merge_sort(v,low,mid);
+    merge_sort(v,low,mid); 
     merge_sort(v,mid+1,high);
     merge(v,low,mid,high);
 }
@@ -115,12 +117,14 @@ int partition(vector<int> &v,int low,int high)
     {
         while(v[i]<=pivot && i<=high-1)
         {
-            i++;
+            i++;    //finding 1st greater element than pivot
+                    //from left to right 
         }
 
         while(v[j]>pivot && j>=low+1)
         {
-            j--;
+            j--;    //finding 1st smaller element than pivot
+                    //from right to left 
         }
 
         if(i<j) swap(v[i],v[j]);
@@ -151,11 +155,12 @@ int main() {
     //selection_sort(myVector,n);
     //bubble_sort(myVector,n);
     //insertion_sort(myVector,n);
-    //merge_sort(myVector,0,n-1);
+    merge_sort(myVector,0,n-1);
     //quick_sort(myVector,0,n-1);
 
     for(int i=0;i<n;i++) 
     cout<<myVector[i]<<" ";
     
     return 0;
+
 }
